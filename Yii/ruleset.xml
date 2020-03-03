@@ -13,18 +13,23 @@
 	<rule ref="Generic.PHP.DisallowShortOpenTag"/>
 	<rule ref="Generic.NamingConventions.ConstructorName"/>
 	<rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+	<rule ref="Generic.NamingConventions.CamelCapsFunctionName"/>
 	<rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
 
 	<!-- Include PEAR sniffs -->
-	<rule ref="PEAR.ControlStructures.ControlSignature"/>
+	<!-- Private functions must start with an underscore. -->
+	<!-- Private members must start with an underscore. -->
 	<rule ref="PEAR.NamingConventions.ValidFunctionName"/>
 	<rule ref="PEAR.NamingConventions.ValidVariableName"/>
 
 	<!-- Include PSR2 sniffs -->
+	<!-- There are no else if statements (elseif should be used instead) -->
 	<rule ref="PSR2.ControlStructures.ElseIfDeclaration"/>
 
 	<!-- Include Squiz sniffs -->
+	<!-- File name matches class name -->
+	<!-- Class name is in StudlyCaps format -->
 	<rule ref="Squiz.Classes.ClassFileName"/>
 	<rule ref="Squiz.Classes.ValidClassName"/>
 

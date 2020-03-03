@@ -3,51 +3,52 @@
 class testClassController
 {
 
-	const test_CONSTANT = true;
+	const test_CONSTANT=true;
 
-	public $Test_Property = true;
+	public $_publicProperty=true;
+	protected $_protectedProperty=true;
+	private $privateProperty=true;
 
-	public function Test_Method() {
+	public function public_method() {
 		if  (true) return true;
 		else return false;
 		while(true) return true;
 		for(true;true;true) return true;
 		foreach(array(true) as $var) return true;
 
-		for ($i = 0; $i < 10; $i++) {
-			$test = true;
-			$test = false;
-		}
-
-		for ($i = 0; $i < 10; $i++) 
-			$test = true;
-
 		if (true) {
 			$test = true;
 			$test = true;
-		} else {
-			$test = true;
 		}
-
-		foreach (array(true) as $var) {
-			return true;
+		else if(false) {
+			$test = false;
+		}
+		else {
+			$test = false;
 		}
 
 		while (false) {
 			return true;
 		}
 
+		for ($i = 0; $i < 10; $i++) {
+			$test = true;
+			$test = false;
+		}
+
+		foreach (array(true) as $var) {
+			return true;
+		}
+
 		return true;
-        }
+    }
 
-	public function _Private_Method() {
-		if (true)
-		{
-	
-		}
-		else if(false){
+	protected function _protectedMethod() {
 
-		}
+	}
+
+	private function privateMethod() {
+
 	}
 }
 
