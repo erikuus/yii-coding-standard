@@ -20,7 +20,7 @@ class testClassController
 			$test = true;
 			$test = true;
 		}
-		else if(false) {
+		else if (false) {
 			$test = false;
 		}
 		else {

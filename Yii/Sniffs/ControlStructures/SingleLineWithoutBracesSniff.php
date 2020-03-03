@@ -82,30 +82,33 @@ class Yii_Sniffs_ControlStructures_SingleLineWithoutBracesSniff implements PHP_C
 		);
 
 		// special trick for "FOR". Exclude 2 internal semicolons
-		if ($tokens[$stackPtr]['code'] == T_FOR) {
+		if($tokens[$stackPtr]['code'] == T_FOR)
+		{
 			$specialTokens = array(
 				T_SEMICOLON
 			);
 
 			$next = $stackPtr;
 
-			for ($i = 0; $i <= 1; $i++) {
+			for ($i = 0; $i <= 1; $i++)
 				$next = $this->_findNext($phpcsFile, $specialTokens, ($next + 1), null, false, null, false);
-			}
 
 			$startPosition = $next + 1;
 		} // end if
 
 		$next = $this->_findNext($phpcsFile, $allowedTokens, $startPosition, null, false, null, true);
 
-		if ($next === false) { // this is single line structure.
+		if($next === false) // this is single line structure.
+		{
 			// find the last close parenthesis in the condition.
 			$i = 0;
 			$newParenthesis = $stackPtr;
-			do {
+			do
+			{
 				$newParenthesis = $phpcsFile->findNext(array(T_OPEN_PARENTHESIS, T_CLOSE_PARENTHESIS), ($newParenthesis + 1));
 				$i = ($tokens[$newParenthesis]['type'] == "T_OPEN_PARENTHESIS") ? $i + 1 : $i - 1;
-			} while ($i != 0);
+			}
+			while($i != 0);
 
 			$closeBracket = $newParenthesis;
 
@@ -113,16 +116,19 @@ class Yii_Sniffs_ControlStructures_SingleLineWithoutBracesSniff implements PHP_C
 			$n       = 1;
 			$newline = false;
 
-			while ($tokens[$closeBracket + $n]['type'] == 'T_WHITESPACE') {
+			while($tokens[$closeBracket + $n]['type'] == 'T_WHITESPACE')
+			{
 				$strlen = strlen($tokens[$closeBracket + $n]['content']);
-				if ($tokens[$closeBracket + $n]['content'][$strlen - 1] == $phpcsFile->eolChar) {
+				if($tokens[$closeBracket + $n]['content'][$strlen - 1] == $phpcsFile->eolChar)
+				{
 					$newline = true;
 					break;
 				}
 				$n++;
 			}
 
-			if ($newline === false) {
+			if($newline === false)
+			{
 				$error = 'Single line "%s" must have an expression started from new line. ';
 				$phpcsFile->addError($error, $stackPtr, 'SingleLineExpressionMustHaveANewLineExpression', array(strtoupper($tokens[$stackPtr]['content'])));
 			}
