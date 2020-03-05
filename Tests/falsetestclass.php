@@ -2,7 +2,6 @@
 
 class testClassController
 {
-
 	const test_CONSTANT=true;
 
 	public $_publicProperty=true;
@@ -10,10 +9,15 @@ class testClassController
 	private $privateProperty=true;
 
 	public function public_method() {
-		if  (true) return true;
+
+		if (true) return true;
+
 		else return false;
+
 		while(true) return true;
+
 		for(true;true;true) return true;
+
 		foreach(array(true) as $var) return true;
 
 		if (true) {
@@ -42,19 +46,4 @@ class testClassController
 
 		return true;
     }
-
-	protected function _protectedMethod() {
-
-	}
-
-	private function privateMethod() {
-
-	}
 }
-
-class SecondClass {
-
-}
-
-$new = new testClassController;
-

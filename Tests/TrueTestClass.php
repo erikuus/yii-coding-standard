@@ -2,7 +2,6 @@
 
 class TrueTestClass
 {
-
 	const TEST_CONSTANT=true;
 	public $publicProperty=true;
 	protected $protectedProperty=true;
@@ -54,17 +53,4 @@ class TrueTestClass
 
 		return true;
 	}
-
-	protected function protectedMethod()
-	{
-
-
-	}
-
-	private function _privateMethod()
-	{
-
-	}
 }
-
-$new = new TrueTestClass();
