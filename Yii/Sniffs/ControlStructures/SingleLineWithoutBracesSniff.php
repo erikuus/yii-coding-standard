@@ -55,10 +55,10 @@ class Yii_Sniffs_ControlStructures_SingleLineWithoutBracesSniff implements PHP_C
 	{
 		return array(
 			T_IF,
+			T_ELSE,
 			T_WHILE,
 			T_FOR,
 			T_FOREACH,
-			T_ELSE,
 		);
 	} //end register()
 
@@ -116,7 +116,7 @@ class Yii_Sniffs_ControlStructures_SingleLineWithoutBracesSniff implements PHP_C
 			$n       = 1;
 			$newline = false;
 
-			while($tokens[$closeBracket + $n]['type'] == 'T_WHITESPACE')
+			while(in_array($tokens[$closeBracket + $n]['type'], array('T_WHITESPACE', 'T_SEMICOLON')))
 			{
 				$strlen = strlen($tokens[$closeBracket + $n]['content']);
 				if($tokens[$closeBracket + $n]['content'][$strlen - 1] == $phpcsFile->eolChar)
@@ -125,6 +125,16 @@ class Yii_Sniffs_ControlStructures_SingleLineWithoutBracesSniff implements PHP_C
 					break;
 				}
 				$n++;
+			}
+
+			if($tokens[$closeBracket + $n]['type'] == 'T_SEMICOLON' && $tokens[$stackPtr]['code'] == T_WHILE)
+			{
+				$p = 1;
+				while ($tokens[$stackPtr - $p]['type'] == 'T_WHITESPACE')
+					$p++;
+
+				if($tokens[$stackPtr - $p]['code'] == T_CLOSE_CURLY_BRACKET && $tokens[$tokens[$stackPtr - $p]['scope_condition']]['code'] == T_DO)
+					return; // a do-while structure, should be ignored
 			}
 
 			if($newline === false)
