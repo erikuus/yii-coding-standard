@@ -10,9 +10,7 @@ class testClassController
 
 	public function public_method() {
 
-		if (true) return true;
-
-		else return false;
+		if(true) return true;
 
 		while(true) return true;
 
@@ -20,27 +18,21 @@ class testClassController
 
 		foreach(array(true) as $var) return true;
 
-		if (true) {
+		if(true) {
 			$test = true;
 			$test = true;
-		}
-		else if (false) {
-			$test = false;
-		}
-		else {
-			$test = false;
 		}
 
 		while (false) {
 			return true;
 		}
 
-		for ($i = 0; $i < 10; $i++) {
+		for($i = 0; $i < 10; $i++) {
 			$test = true;
 			$test = false;
 		}
 
-		foreach (array(true) as $var) {
+		foreach(array(true) as $var) {
 			return true;
 		}
 

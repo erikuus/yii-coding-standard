@@ -56,6 +56,7 @@ class Yii_Sniffs_ControlStructures_SingleLineWithoutBracesSniff implements PHP_C
 		return array(
 			T_IF,
 			T_ELSE,
+			T_ELSEIF,
 			T_WHILE,
 			T_FOR,
 			T_FOREACH,
@@ -119,7 +120,8 @@ class Yii_Sniffs_ControlStructures_SingleLineWithoutBracesSniff implements PHP_C
 			while(in_array($tokens[$closeBracket + $n]['type'], array('T_WHITESPACE', 'T_SEMICOLON')))
 			{
 				$strlen = strlen($tokens[$closeBracket + $n]['content']);
-				if($tokens[$closeBracket + $n]['content'][$strlen - 1] == $phpcsFile->eolChar)
+				$char = $tokens[$closeBracket + $n]['content'][$strlen - 1];
+				if($char == "\r\n" || $char == "\n") // $phpcsFile->eolChar
 				{
 					$newline = true;
 					break;
@@ -127,6 +129,7 @@ class Yii_Sniffs_ControlStructures_SingleLineWithoutBracesSniff implements PHP_C
 				$n++;
 			}
 
+			// a do-while structure, should be ignored
 			if($tokens[$closeBracket + $n]['type'] == 'T_SEMICOLON' && $tokens[$stackPtr]['code'] == T_WHILE)
 			{
 				$p = 1;
@@ -134,13 +137,17 @@ class Yii_Sniffs_ControlStructures_SingleLineWithoutBracesSniff implements PHP_C
 					$p++;
 
 				if($tokens[$stackPtr - $p]['code'] == T_CLOSE_CURLY_BRACKET && $tokens[$tokens[$stackPtr - $p]['scope_condition']]['code'] == T_DO)
-					return; // a do-while structure, should be ignored
+					return;
 			}
 
 			if($newline === false)
 			{
-				$error = 'Single line "%s" must have an expression started from new line. ';
-				$phpcsFile->addError($error, $stackPtr, 'SingleLineExpressionMustHaveANewLineExpression', array(strtoupper($tokens[$stackPtr]['content'])));
+				$tokenName=strtoupper($tokens[$stackPtr]['content']);
+				if($tokenName!='ELSE') // ignore last else errors
+				{
+					$error = 'Single line "%s" must have an expression started from new line.';
+					$phpcsFile->addError($error, $stackPtr, 'SingleLineExpressionMustHaveANewLineExpression', array($tokenName));
+				}
 			}
 		} // end if
 	} //end process()
