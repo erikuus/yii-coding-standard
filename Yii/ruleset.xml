@@ -31,8 +31,9 @@
 	<!-- File name matches class name -->
 	<!-- Class name is in StudlyCaps format -->
 	<rule ref="Squiz.Classes.ClassFileName"/>
-	<rule ref="Squiz.Classes.ValidClassName"/>
-
+	<rule ref="Squiz.Classes.ValidClassName">
+		<exclude-pattern>*/migrations/*</exclude-pattern>
+	</rule>
 	<!-- Change messages -->
 	<rule ref="Squiz.Classes.ValidClassName.NotCamelCaps">
 		<message>%s name "%s" is not in StudlyCaps format</message>
